@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Type you commit"
+echo "Type you commit :"
 read commit
 
 git add .
