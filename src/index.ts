@@ -4,14 +4,12 @@ import * as dotenv from 'dotenv';
 const app = express();
 const port = 3000;
 import db from './DB/mysql.js';
+import SingUp from "./auth/signup.js"
 
 dotenv.config();
 app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.send('Hello TypeScript + Node.js!');
-});
-
+// connect mysql database
 db.getConnection((err, connection) => {
   if (err) {
     console.log("DB connection error");
@@ -20,6 +18,14 @@ db.getConnection((err, connection) => {
     connection.release();
   }
 });
+
+// all route
+
+app.get('/', (req, res) => {
+  res.send('Hello TypeScript + Node.js!');
+});
+
+app.use('/api/v1/auth',SingUp) // registration api
 
 
 app.listen(port, () => {
