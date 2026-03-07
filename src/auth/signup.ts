@@ -45,3 +45,4 @@ router.post('/signup', async (req, res) => {
 })
 
 export default router
+//  -29905008 ~ 12824816
