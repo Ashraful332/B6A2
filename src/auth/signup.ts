@@ -18,14 +18,14 @@ router.post('/signup', async (req, res) => {
         const saltRounds: number = Number(process.env.SALTROUNDS); // import salt rounds as number
         const hashedPassword = await bcrypt.hash(password, saltRounds) // hash password 
 
-        const sql = 'INSERT INTO users (name, email, hashedPassword, phone, role ) VALUES (?,?,?,?,?) '
+        const sql = 'INSERT INTO users (name, email, password, phone, role ) VALUES (?,?,?,?,?) '
         const values = [name, email, hashedPassword, phone, role];
 
         // Execute the query using the connection pool
         const [result]: any = await db.execute(sql, values);
 
         console.log('Record inserted:', result.insertId);
-        res.status(2001).json({
+        res.status(201).json({
             "success": true,
             "message": "User registered successfully",
             "data": {
