@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/Ashraful332/B6A2#readme",
   "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
     "@types/express": "^5.0.6",
     "@types/node": "^25.3.5",
     "ts-node": "^10.9.2",
