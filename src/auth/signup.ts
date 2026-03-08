@@ -18,7 +18,7 @@ router.post('/signup', async (req, res) => {
         const saltRounds: number = Number(process.env.SALTROUNDS); // import salt rounds as number
         const hashedPassword = await bcrypt.hash(password, saltRounds) // hash password 
 
-        const sql = 'INSERT INTO users (name, email, password, phone, role ) VALUES (?,?,?,?,?) '
+        const sql = 'INSERT INTO users (name, email, password, phone, role ) VALUES (?,?,?,?,?)'
         const values = [name, email, hashedPassword, phone, role];
 
         // Execute the query using the connection pool
@@ -45,4 +45,3 @@ router.post('/signup', async (req, res) => {
 })
 
 export default router
-//  -29905008 ~ 12824816
