@@ -54,5 +54,28 @@ router.put("/:userId", authenticateToken, async (req, res) => {
     }
 })
 
+// delete user
+router.delete("/:userId", authenticateToken, async (req, res) => {
+    const userId = req.params.userId;
+    
+    try {
+        const sql = 'DELETE FROM users WHERE id = ?'; // sql query
+        const [result]: any = await db.execute(sql, [userId]); // run sql
+
+        // Check if any rows were affected
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ message: `User with ID ${userId} not found` });
+        }
+
+        // send success message
+        res.status(200).json({
+            "success": true,
+            "message": "User deleted successfully"
+        })
+    } catch (error: any) {
+        console.log("error is coming : ", error);
+        res.status(500).json({ message: "Error is coming", error: error.message })
+    }
+})
 
 export default router;

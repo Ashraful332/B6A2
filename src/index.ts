@@ -8,6 +8,7 @@ import db from './DB/mysql.js';
 import SignUp from "./auth/signup.js"
 import Signin from "./auth/signin.js"
 import Users from "./client/Users.js"
+import Vehicles from "./client/Vehicles.js"
 
 dotenv.config();
 app.use(express.json());
@@ -36,6 +37,7 @@ app.get('/', (req, res) => {
 app.use('/api/v1/auth',SignUp) // registration api
 app.use('/api/v1/auth',Signin) // login api
 app.use('/api/v1/users',Users) // users api
+app.use('/api/v1/vehicles',Vehicles) // users api
 
 
 app.listen(port, () => {
