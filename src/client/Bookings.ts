@@ -60,7 +60,7 @@ router.post("/", authenticateToken, async (req, res) => {
 router.get("/", authenticateToken, async (req, res) => {
     try {
         const [Booking]: any = await db.execute('SELECT * FROM Bookings '); // get all bookings
-        
+
         // get user data
         async function getUserData(userId: number) {
             const [Customer]: any = await db.execute("SELECT * FROM users WHERE id = ?", [userId]);
@@ -75,9 +75,9 @@ router.get("/", authenticateToken, async (req, res) => {
             const [Vehicle]: any = await db.execute("SELECT * FROM Vehicles WHERE id = ?", [vehicleId]);
 
             return {
-                    vehicle_name: Vehicle[0].vehicle_name,
-                    registration_number: Vehicle[0].registration_number
-                };
+                vehicle_name: Vehicle[0].vehicle_name,
+                registration_number: Vehicle[0].registration_number
+            };
         }
 
         const data = await Promise.all(
@@ -99,6 +99,39 @@ router.get("/", authenticateToken, async (req, res) => {
             message: "Bookings retrieved successfully",
             data: data
         });
+    } catch (error: any) {
+        console.log("error is coming : ", error);
+        res.status(500).json({ message: "Error is coming", error: error.message })
+    }
+})
+
+// update bookings
+router.put("/:bookingId", authenticateToken, async (req, res) => {
+    const bookingId = req.params.bookingId;
+    const { status } = req.body;
+    try {
+        const query = 'UPDATE Bookings SET status = ? WHERE id = ?';
+        const values = [status, bookingId];
+        const [result]: any = await db.execute(query, values);
+
+        const [Booking]: any = await db.execute('SELECT * FROM Bookings WHERE id = ? ', [bookingId]); // get all bookings
+
+        console.log(result);
+
+
+        res.status(200).json({
+            "success": true,
+            "message": "Booking cancelled successfully",
+            "data": {
+                "id": bookingId,
+                "customer_id": Booking[0].customer_id,
+                "vehicle_id": Booking[0].vehicle_id,
+                "rent_start_date": Booking[0].rent_start_date,
+                "rent_end_date": Booking[0].rent_end_date,
+                "total_price": Booking[0].total_price,
+                "status": status
+            }
+        })
     } catch (error: any) {
         console.log("error is coming : ", error);
         res.status(500).json({ message: "Error is coming", error: error.message })
