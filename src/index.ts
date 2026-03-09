@@ -7,6 +7,7 @@ import cors from "cors";
 import db from './DB/mysql.js';
 import SignUp from "./auth/signup.js"
 import Signin from "./auth/signin.js"
+import Users from "./client/Users.js"
 
 dotenv.config();
 app.use(express.json());
@@ -34,6 +35,7 @@ app.get('/', (req, res) => {
 
 app.use('/api/v1/auth',SignUp) // registration api
 app.use('/api/v1/auth',Signin) // login api
+app.use('/api/v1/users',Users) // users api
 
 
 app.listen(port, () => {
