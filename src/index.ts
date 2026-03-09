@@ -9,6 +9,7 @@ import SignUp from "./auth/signup.js"
 import Signin from "./auth/signin.js"
 import Users from "./client/Users.js"
 import Vehicles from "./client/Vehicles.js"
+import Booking from "./client/Bookings.js"
 
 dotenv.config();
 app.use(express.json());
@@ -37,7 +38,8 @@ app.get('/', (req, res) => {
 app.use('/api/v1/auth',SignUp) // registration api
 app.use('/api/v1/auth',Signin) // login api
 app.use('/api/v1/users',Users) // users api
-app.use('/api/v1/vehicles',Vehicles) // users api
+app.use('/api/v1/vehicles',Vehicles) // vehicles api
+app.use('/api/v1/bookings',Booking) // booking api
 
 
 app.listen(port, () => {
